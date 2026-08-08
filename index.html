@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trato Automóveis Top — Brasília/DF</title>
+<meta name="description" content="Concessionária Trato Automóveis Top em Brasília-DF. Catálogo de carros com atendimento direto pelo WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14110E;
+    --bg-alt:#1B1712;
+    --surface:#221C16;
+    --surface-2:#2A231C;
+    --cream:#F3ECDE;
+    --cream-dim:#C9BFAE;
+    --mustard:#D9A441;
+    --mustard-dim:#B98A34;
+    --rust:#D9622C;
+    --rust-dim:#B84F22;
+    --line:#3A322A;
+    --plate-blue:#1447E6;
+    --radius:4px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--cream);
+    font-family:'Work Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--mustard); color:#14110E; }
+
+  h1,h2,h3, .display{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+    text-transform:uppercase;
+    line-height:0.95;
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  a{ color:inherit; text-decoration:none; }
+  img{ display:block; max-width:100%; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
+
+  /* subtle diagonal stripe texture used sparingly as a signature device */
+  .stripes{
+    background-image: repeating-linear-gradient(-45deg, var(--mustard) 0 10px, transparent 10px 22px);
+    opacity:0.9;
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(20,17,14,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 24px;
+    max-width:1180px; margin:0 auto;
+  }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand img{ width:44px; height:44px; border-radius:50%; border:2px solid var(--mustard); }
+  .brand-name{ font-family:'Anton', sans-serif; font-size:18px; letter-spacing:0.03em; }
+  .brand-name span{ color:var(--rust); }
+  nav.links{ display:flex; gap:28px; font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; }
+  nav.links a{ color:var(--cream-dim); transition:color .2s; padding:6px 0; border-bottom:2px solid transparent; }
+  nav.links a:hover{ color:var(--mustard); border-color:var(--mustard); }
+  .nav-cta{
+    display:flex; align-items:center; gap:8px;
+    background:#25D366; color:#0c1a10; font-weight:800; font-size:13px;
+    padding:10px 16px; border-radius:999px; text-transform:uppercase; letter-spacing:0.03em;
+  }
+  .nav-cta:hover{ filter:brightness(1.08); }
+  .burger{ display:none; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:72px 0 60px;
+    background:
+      radial-gradient(ellipse 900px 500px at 78% -10%, rgba(217,164,65,0.18), transparent 60%),
+      var(--bg);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .hero-stripe{
+    position:absolute; left:0; right:0; bottom:0; height:8px;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:48px; align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:700;
+    letter-spacing:0.12em; text-transform:uppercase; color:var(--mustard);
+    background:rgba(217,164,65,0.1); border:1px solid rgba(217,164,65,0.35);
+    padding:6px 12px; border-radius:999px; margin-bottom:22px;
+  }
+  .eyebrow::before{ content:"●"; color:var(--rust); font-size:8px; }
+  .hero h1{
+    font-size:clamp(40px, 6vw, 74px);
+    color:var(--cream);
+  }
+  .hero h1 .hl{ color:var(--rust); }
+  .hero p.lead{
+    margin-top:22px; font-size:18px; line-height:1.6; color:var(--cream-dim);
+    max-width:46ch;
+  }
+  .hero-actions{ display:flex; gap:14px; margin-top:34px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:15px 26px; border-radius:2px; font-weight:800; font-size:14px;
+    text-transform:uppercase; letter-spacing:0.04em; cursor:pointer; border:none;
+    transition:transform .15s ease, filter .15s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-primary{ background:var(--rust); color:#160B06; }
+  .btn-primary:hover{ filter:brightness(1.1); }
+  .btn-outline{ background:transparent; color:var(--cream); border:1.5px solid var(--line); }
+  .btn-outline:hover{ border-color:var(--mustard); color:var(--mustard); }
+
+  .hero-badge-row{ display:flex; gap:22px; margin-top:40px; flex-wrap:wrap; }
+  .hero-badge{ display:flex; flex-direction:column; }
+  .hero-badge b{ font-family:'Anton'; font-size:28px; color:var(--mustard); }
+  .hero-badge span{ font-size:12px; color:var(--cream-dim); text-transform:uppercase; letter-spacing:0.05em; }
+
+  .hero-visual{
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .badge-circle{
+    position:relative;
+    width:min(360px, 80vw); aspect-ratio:1;
+    border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, #2b241c, #14110E 70%);
+    border:3px solid var(--mustard);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 0 10px rgba(217,164,65,0.06), 0 30px 60px rgba(0,0,0,0.5);
+  }
+  .badge-circle img{ width:78%; border-radius:50%; }
+  .badge-ring-text{
+    position:absolute; inset:-18px;
+    animation: spin 18s linear infinite;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce){ .badge-ring-text{ animation:none; } }
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{
+    background:var(--rust); color:#1a0d05; overflow:hidden; border-bottom:1px solid var(--line);
+    border-top:1px solid var(--line);
+  }
+  .marquee-track{
+    display:flex; gap:48px; white-space:nowrap; padding:10px 0;
+    animation:marquee 26s linear infinite;
+    font-family:'JetBrains Mono'; font-weight:700; font-size:13px; letter-spacing:0.08em; text-transform:uppercase;
+  }
+  .marquee-track span{ display:flex; align-items:center; gap:10px; }
+  @keyframes marquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  @media (prefers-reduced-motion: reduce){ .marquee-track{ animation:none; } }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{ padding:88px 0; }
+  .section-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:44px; flex-wrap:wrap; }
+  .section-tag{
+    font-family:'JetBrains Mono'; font-size:12px; font-weight:700; letter-spacing:0.15em;
+    text-transform:uppercase; color:var(--rust); margin-bottom:10px; display:block;
+  }
+  .section h2{ font-size:clamp(30px,4vw,46px); color:var(--cream); }
+  .section-desc{ color:var(--cream-dim); max-width:52ch; font-size:15px; line-height:1.6; }
+
+  /* ---------- CATALOG (plate-ticket cards) ---------- */
+  #catalogo{ background:var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+
+  .filters{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:36px; }
+  .filter-btn{
+    font-family:'JetBrains Mono'; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;
+    padding:9px 16px; border-radius:999px; border:1px solid var(--line); background:transparent; color:var(--cream-dim);
+    cursor:pointer; transition:all .15s;
+  }
+  .filter-btn:hover{ border-color:var(--mustard); color:var(--mustard); }
+  .filter-btn.active{ background:var(--mustard); color:#14110E; border-color:var(--mustard); }
+
+  .car-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:26px; }
+  .car-card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    position:relative;
+    transition:transform .2s ease, border-color .2s ease;
+  }
+  .car-card:hover{ transform:translateY(-4px); border-color:var(--mustard-dim); }
+  .car-photo{
+    height:190px; position:relative; overflow:hidden;
+    background:linear-gradient(135deg, #2c2419, #17130E);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .car-photo .car-emoji{ font-size:56px; filter:grayscale(0.15); opacity:0.85; }
+  .car-tag{
+    position:absolute; top:12px; left:12px;
+    background:var(--rust); color:#180C05; font-family:'JetBrains Mono'; font-weight:700; font-size:11px;
+    padding:4px 10px; border-radius:2px; text-transform:uppercase; letter-spacing:0.05em;
+  }
+  .car-body{ padding:18px 18px 20px; }
+  .car-name{ font-family:'Anton'; font-size:21px; color:var(--cream); letter-spacing:0.01em; }
+  .car-sub{ color:var(--cream-dim); font-size:13px; margin-top:4px; text-transform:uppercase; letter-spacing:0.03em; }
+
+  .plate{
+    margin-top:14px; display:inline-flex; align-items:stretch; border-radius:3px; overflow:hidden;
+    border:1.5px solid #0a2fb0; box-shadow:0 2px 0 rgba(0,0,0,0.3);
+  }
+  .plate-br{ background:var(--plate-blue); color:#fff; font-family:'JetBrains Mono'; font-size:9px; font-weight:700;
+    display:flex; align-items:center; justify-content:center; padding:0 6px; letter-spacing:0.05em; writing-mode:vertical-rl; text-orientation:mixed;}
+  .plate-num{ background:#F3EFE4; color:#14110E; font-family:'JetBrains Mono'; font-weight:700; font-size:14px;
+    padding:5px 10px; letter-spacing:0.1em; }
+
+  .car-meta{ display:flex; gap:16px; margin-top:14px; padding-top:14px; border-top:1px dashed var(--line); font-size:12px; color:var(--cream-dim); }
+  .car-meta div{ display:flex; flex-direction:column; gap:2px; }
+  .car-meta b{ color:var(--cream); font-size:13px; }
+
+  .car-price-row{ display:flex; align-items:center; justify-content:space-between; margin-top:16px; }
+  .car-price{ font-family:'Anton'; font-size:22px; color:var(--mustard); }
+  .car-price small{ font-family:'Work Sans'; font-size:11px; color:var(--cream-dim); display:block; text-transform:uppercase; letter-spacing:0.05em; font-weight:600; }
+
+  .zap-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:#25D366; color:#0c1a10; font-weight:800; font-size:12.5px;
+    padding:10px 16px; border-radius:999px; text-transform:uppercase; letter-spacing:0.03em;
+    width:100%; justify-content:center; margin-top:16px; transition:filter .15s, transform .15s;
+  }
+  .zap-btn:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+  .zap-btn svg{ width:16px; height:16px; flex:none; }
+
+  .catalog-note{
+    margin-top:38px; padding:18px 22px; border:1px dashed var(--line); border-radius:4px;
+    color:var(--cream-dim); font-size:13.5px; display:flex; gap:12px; align-items:flex-start;
+  }
+  .catalog-note b{ color:var(--mustard); }
+
+  /* ---------- WHY US ---------- */
+  .why-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:10px;}
+  .why-item{ background:var(--bg); padding:32px 26px; }
+  .why-item .num{ font-family:'JetBrains Mono'; color:var(--rust); font-size:13px; font-weight:700; }
+  .why-item h3{ font-family:'Anton'; font-size:20px; margin-top:14px; color:var(--cream); text-transform:none; }
+  .why-item p{ margin-top:10px; font-size:14px; color:var(--cream-dim); line-height:1.6; }
+
+  /* ---------- INSTAGRAM ---------- */
+  #instagram{
+    background:linear-gradient(160deg, #201a14, #14110E 60%);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .insta-panel{
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:48px; align-items:center;
+  }
+  .insta-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:32px;
+  }
+  .insta-head{ display:flex; align-items:center; gap:14px; }
+  .insta-icon{
+    width:52px; height:52px; border-radius:14px; flex:none;
+    background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .insta-icon svg{ width:26px; height:26px; }
+  .insta-handle{ font-family:'Anton'; font-size:19px; color:var(--cream); }
+  .insta-sub{ font-size:12.5px; color:var(--cream-dim); margin-top:2px; }
+  .insta-desc{ margin-top:20px; font-size:14.5px; color:var(--cream-dim); line-height:1.65; }
+  .insta-follow{
+    margin-top:24px; display:inline-flex; align-items:center; gap:10px;
+    background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7); color:#fff; font-weight:800; font-size:13.5px;
+    padding:13px 22px; border-radius:999px; text-transform:uppercase; letter-spacing:0.03em;
+  }
+  .insta-follow:hover{ filter:brightness(1.08); }
+
+  .insta-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .insta-tile{
+    aspect-ratio:1; border-radius:6px; position:relative; overflow:hidden;
+    background:linear-gradient(135deg, #2c2419, #17130E);
+    display:flex; align-items:center; justify-content:center; border:1px solid var(--line);
+  }
+  .insta-tile span{ font-size:30px; opacity:0.7; }
+  .insta-tile::after{
+    content:""; position:absolute; inset:0; background:rgba(20,17,14,0); transition:background .2s;
+  }
+  .insta-tile:hover::after{ background:rgba(20,17,14,0.25); }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  #contato{ padding:88px 0 40px; text-align:center; }
+  #contato h2{ font-size:clamp(32px,5vw,54px); }
+  #contato p.sub{ color:var(--cream-dim); margin-top:16px; max-width:50ch; margin-left:auto; margin-right:auto; }
+  .contact-actions{ display:flex; gap:16px; justify-content:center; margin-top:34px; flex-wrap:wrap; }
+
+  footer{ border-top:1px solid var(--line); padding:28px 0; }
+  .footer-row{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+  .footer-brand{ display:flex; align-items:center; gap:10px; font-size:13px; color:var(--cream-dim); }
+  .footer-brand img{ width:28px; height:28px; border-radius:50%; }
+  .footer-links{ display:flex; gap:20px; font-size:13px; color:var(--cream-dim); }
+  .footer-links a:hover{ color:var(--mustard); }
+
+  .whatsapp-float{
+    position:fixed; right:22px; bottom:22px; z-index:60;
+    width:58px; height:58px; border-radius:50%; background:#25D366;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 24px rgba(0,0,0,0.4);
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  .whatsapp-float svg{ width:28px; height:28px; }
+  @keyframes pulse{ 0%,100%{ box-shadow:0 10px 24px rgba(0,0,0,0.4), 0 0 0 0 rgba(37,211,102,0.5);} 50%{ box-shadow:0 10px 24px rgba(0,0,0,0.4), 0 0 0 10px rgba(37,211,102,0);} }
+  @media (prefers-reduced-motion: reduce){ .whatsapp-float{ animation:none; } }
+
+  @media (max-width: 900px){
+    nav.links{ display:none; }
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero-visual{ order:-1; }
+    .car-grid{ grid-template-columns:repeat(2,1fr); }
+    .why-grid{ grid-template-columns:1fr; }
+    .insta-panel{ grid-template-columns:1fr; }
+  }
+  @media (max-width:560px){
+    .car-grid{ grid-template-columns:1fr; }
+    .nav-cta span{ display:none; }
+    .insta-grid{ grid-template-columns:repeat(3,1fr); }
+  }
+
+  :focus-visible{ outline:2px solid var(--mustard); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      <img src="assets/logo.jpg" alt="Trato Automóveis Top">
+      <div class="brand-name">TRATO AUTOMÓVEIS <span>TOP</span></div>
+    </div>
+    <nav class="links">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#por-que">Por que a gente</a>
+      <a href="#instagram">Instagram</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="nav-cta" id="navZap" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m0 1.67c2.21 0 4.29.86 5.85 2.42a8.23 8.23 0 0 1 2.42 5.82c0 4.55-3.71 8.25-8.27 8.25a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.13.82.84-3.05-.2-.31a8.18 8.18 0 0 1-1.26-4.37c0-4.56 3.71-8.25 8.24-8.25M8.53 6.9c-.17 0-.45.06-.68.32-.24.25-.9.88-.9 2.15s.92 2.5 1.05 2.67c.13.17 1.8 2.86 4.45 3.9 2.2.86 2.65.69 3.13.65.48-.05 1.53-.62 1.75-1.23s.22-1.12.15-1.23c-.06-.11-.24-.17-.5-.3s-1.53-.75-1.77-.84c-.24-.09-.41-.13-.59.13-.17.26-.67.84-.82 1.01-.15.17-.3.19-.56.06-.26-.13-1.1-.4-2.09-1.28-.77-.68-1.29-1.53-1.44-1.79-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.59-1.47-.83-2.01-.21-.5-.43-.44-.6-.45z"/></svg>
+      <span>Fale no Zap</span>
+    </a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Brasília · DF</div>
+      <h1>SEU PRÓXIMO<br>CARRO É <span class="hl">TOP</span></h1>
+      <p class="lead">Carros revisados, procedência clara e negociação direta com quem entende. Escolhe no catálogo e fala com a gente pelo WhatsApp — sem enrolação.</p>
+      <div class="hero-actions">
+        <a href="#catalogo" class="btn btn-primary">Ver catálogo</a>
+        <a id="heroZap" href="#" target="_blank" rel="noopener" class="btn btn-outline">Falar com vendedor</a>
+      </div>
+      <div class="hero-badge-row">
+        <div class="hero-badge"><b>+200</b><span>Carros entregues</span></div>
+        <div class="hero-badge"><b>4.9★</b><span>Avaliação dos clientes</span></div>
+        <div class="hero-badge"><b>100%</b><span>Procedência revisada</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="badge-circle">
+        <img src="assets/logo.jpg" alt="Mascote Trato Automóveis Top">
+      </div>
+    </div>
+  </div>
+  <div class="hero-stripe stripes"></div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>★ Revisão completa</span><span>★ Financiamento facilitado</span><span>★ Aceita seu usado na troca</span><span>★ Garantia de procedência</span><span>★ Atendimento direto no WhatsApp</span>
+    <span>★ Revisão completa</span><span>★ Financiamento facilitado</span><span>★ Aceita seu usado na troca</span><span>★ Garantia de procedência</span><span>★ Atendimento direto no WhatsApp</span>
+  </div>
+</div>
+
+<section class="section" id="catalogo">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="section-tag">Catálogo</span>
+        <h2>Carros disponíveis</h2>
+        <p class="section-desc" style="margin-top:12px;">Toca em "Chamar no Zap" e já cai na conversa com a gente com o carro identificado. Estoque de exemplo — os modelos reais entram em seguida.</p>
+      </div>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="todos">Todos</button>
+      <button class="filter-btn" data-filter="hatch">Hatch</button>
+      <button class="filter-btn" data-filter="sedan">Sedã</button>
+      <button class="filter-btn" data-filter="suv">SUV</button>
+      <button class="filter-btn" data-filter="picape">Picape</button>
+    </div>
+
+    <div class="car-grid" id="carGrid"></div>
+
+    <div class="catalog-note">
+      <span>🛠️</span>
+      <div><b>Estoque de exemplo:</b> essas fichas são placeholders para você aprovar o layout. Assim que você mandar a lista real (marca, modelo, ano, km, preço e fotos), a gente troca tudo aqui.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="por-que">
+  <div class="wrap">
+    <span class="section-tag">Por que a Trato Top</span>
+    <h2>Comprar carro sem dor de cabeça</h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="num mono">01</div>
+        <h3>Carros revisados</h3>
+        <p>Cada veículo passa por checagem mecânica antes de ir pro pátio. Nada de surpresa depois da compra.</p>
+      </div>
+      <div class="why-item">
+        <div class="num mono">02</div>
+        <h3>Negociação direta</h3>
+        <p>Sem central de atendimento, sem robô. Você fala direto com quem decide o preço, pelo WhatsApp.</p>
+      </div>
+      <div class="why-item">
+        <div class="num mono">03</div>
+        <h3>Facilita a troca</h3>
+        <p>Seu carro usado entra como parte do pagamento. A gente avalia na hora, sem burocracia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="instagram">
+  <div class="wrap insta-panel">
+    <div class="insta-card">
+      <div class="insta-head">
+        <div class="insta-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2c-2.72 0-3.06.01-4.12.06-1.06.05-1.79.22-2.43.47-.66.26-1.22.6-1.77 1.16a4.9 4.9 0 0 0-1.16 1.77c-.25.64-.42 1.37-.47 2.43C2.01 8.94 2 9.28 2 12s.01 3.06.06 4.12c.05 1.06.22 1.79.47 2.43.26.66.6 1.22 1.16 1.77a4.9 4.9 0 0 0 1.77 1.16c.64.25 1.37.42 2.43.47C8.94 21.99 9.28 22 12 22s3.06-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47a4.9 4.9 0 0 0 1.77-1.16 4.9 4.9 0 0 0 1.16-1.77c.25-.64.42-1.37.47-2.43.05-1.06.06-1.4.06-4.12s-.01-3.06-.06-4.12c-.05-1.06-.22-1.79-.47-2.43a4.9 4.9 0 0 0-1.16-1.77 4.9 4.9 0 0 0-1.77-1.16c-.64-.25-1.37-.42-2.43-.47C15.06 2.01 14.72 2 12 2m0 1.8c2.67 0 2.99.01 4.04.06.98.04 1.51.21 1.86.35.47.18.8.4 1.15.75.35.35.57.68.75 1.15.14.35.31.88.35 1.86.05 1.05.06 1.37.06 4.04s-.01 2.99-.06 4.04c-.04.98-.21 1.51-.35 1.86-.18.47-.4.8-.75 1.15-.35.35-.68.57-1.15.75-.35.14-.88.31-1.86.35-1.05.05-1.37.06-4.04.06s-2.99-.01-4.04-.06c-.98-.04-1.51-.21-1.86-.35a3.1 3.1 0 0 1-1.15-.75 3.1 3.1 0 0 1-.75-1.15c-.14-.35-.31-.88-.35-1.86-.05-1.05-.06-1.37-.06-4.04s.01-2.99.06-4.04c.04-.98.21-1.51.35-1.86.18-.47.4-.8.75-1.15.35-.35.68-.57 1.15-.75.35-.14.88-.31 1.86-.35C9.01 3.81 9.33 3.8 12 3.8m0 3.06a5.14 5.14 0 1 0 0 10.28 5.14 5.14 0 0 0 0-10.28m0 8.48a3.34 3.34 0 1 1 0-6.68 3.34 3.34 0 0 1 0 6.68m6.54-8.68a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0" fill="#fff"/></svg>
+        </div>
+        <div>
+          <div class="insta-handle">@tratotopautomoveis</div>
+          <div class="insta-sub">Estoque, chegadas e bastidores da loja</div>
+        </div>
+      </div>
+      <p class="insta-desc">Acompanha os carros assim que chegam no pátio, vídeos de detalhamento e as condições de negociação da semana direto no Instagram.</p>
+      <a class="insta-follow" id="instaFollow" href="https://instagram.com/tratotopautomoveis" target="_blank" rel="noopener">Seguir @tratotopautomoveis →</a>
+    </div>
+    <div>
+      <div class="insta-grid" id="instaGrid"></div>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="wrap">
+    <span class="section-tag">Fale com a gente</span>
+    <h2>Bora fechar negócio?</h2>
+    <p class="sub">Chama no WhatsApp e conta o que você procura. A gente separa as melhores opções do pátio pra você.</p>
+    <div class="contact-actions">
+      <a id="contactZap" href="#" target="_blank" rel="noopener" class="btn btn-primary">Chamar no WhatsApp</a>
+      <a href="https://instagram.com/tratotopautomoveis" target="_blank" rel="noopener" class="btn btn-outline">Ver Instagram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <div class="footer-brand">
+      <img src="assets/logo.jpg" alt="Trato Automóveis Top">
+      <span>© <span id="year"></span> Trato Automóveis Top — Brasília/DF</span>
+    </div>
+    <div class="footer-links">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#instagram">Instagram</a>
+      <a href="#contato">Contato</a>
+    </div>
+  </div>
+</footer>
+
+<a class="whatsapp-float" id="floatZap" href="#" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="#0c1a10"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m0 1.67c2.21 0 4.29.86 5.85 2.42a8.23 8.23 0 0 1 2.42 5.82c0 4.55-3.71 8.25-8.27 8.25a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.13.82.84-3.05-.2-.31a8.18 8.18 0 0 1-1.26-4.37c0-4.56 3.71-8.25 8.24-8.25M8.53 6.9c-.17 0-.45.06-.68.32-.24.25-.9.88-.9 2.15s.92 2.5 1.05 2.67c.13.17 1.8 2.86 4.45 3.9 2.2.86 2.65.69 3.13.65.48-.05 1.53-.62 1.75-1.23s.22-1.12.15-1.23c-.06-.11-.24-.17-.5-.3s-1.53-.75-1.77-.84c-.24-.09-.41-.13-.59.13-.17.26-.67.84-.82 1.01-.15.17-.3.19-.56.06-.26-.13-1.1-.4-2.09-1.28-.77-.68-1.29-1.53-1.44-1.79-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.59-1.47-.83-2.01-.21-.5-.43-.44-.6-.45z"/></svg>
+</a>
+
+<script>
+  // ======= CONFIG =======
+  const WHATSAPP_NUMBER = "556182313601"; // 55 + DDD 61 + número
+  const INSTAGRAM_URL = "https://instagram.com/tratotopautomoveis";
+
+  // ======= CATALOGO (placeholder — trocar pelos carros reais) =======
+  const cars = [
+    { name:"Onix", brand:"Chevrolet", year:"2021/2022", km:"38.500", price:"74.900", tag:"Destaque", cat:"hatch", plate:"TOP-1A23", emoji:"🚗" },
+    { name:"HB20", brand:"Hyundai", year:"2020/2021", km:"52.100", price:"64.900", tag:"Revisado", cat:"hatch", plate:"TOP-1B45", emoji:"🚗" },
+    { name:"Corolla", brand:"Toyota", year:"2019/2020", km:"61.000", price:"98.500", tag:"Top de linha", cat:"sedan", plate:"TOP-2C10", emoji:"🚘" },
+    { name:"Civic", brand:"Honda", year:"2018/2019", km:"70.200", price:"89.900", tag:"Único dono", cat:"sedan", plate:"TOP-2D77", emoji:"🚘" },
+    { name:"Compass", brand:"Jeep", year:"2021/2022", km:"41.300", price:"124.900", tag:"Novo no pátio", cat:"suv", plate:"TOP-3E02", emoji:"🚙" },
+    { name:"Creta", brand:"Hyundai", year:"2020/2021", km:"45.700", price:"104.900", tag:"Blindado", cat:"suv", plate:"TOP-3F88", emoji:"🚙" },
+    { name:"Strada", brand:"Fiat", year:"2022/2023", km:"25.900", price:"96.900", tag:"Seminovo", cat:"picape", plate:"TOP-4G19", emoji:"🛻" },
+    { name:"Hilux", brand:"Toyota", year:"2019/2020", km:"58.400", price:"189.900", tag:"4x4", cat:"picape", plate:"TOP-4H55", emoji:"🛻" },
+    { name:"Argo", brand:"Fiat", year:"2021/2022", km:"33.200", price:"69.900", tag:"Econômico", cat:"hatch", plate:"TOP-1I31", emoji:"🚗" },
+  ];
+
+  function waLink(car){
+    const msg = car
+      ? `Olá! Vi o ${car.brand} ${car.name} (${car.year}) no site da Trato Automóveis Top e quero saber mais.`
+      : "Olá! Vim pelo site da Trato Automóveis Top e quero saber mais sobre os carros disponíveis.";
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  }
+
+  // set generic whatsapp links
+  document.getElementById("navZap").href = waLink();
+  document.getElementById("heroZap").href = waLink();
+  document.getElementById("contactZap").href = waLink();
+  document.getElementById("floatZap").href = waLink();
+
+  // render catalog
+  const grid = document.getElementById("carGrid");
+  function render(filter){
+    grid.innerHTML = "";
+    cars.filter(c => filter === "todos" || c.cat === filter).forEach(car => {
+      const el = document.createElement("div");
+      el.className = "car-card";
+      el.innerHTML = `
+        <div class="car-photo">
+          <span class="car-tag">${car.tag}</span>
+          <span class="car-emoji">${car.emoji}</span>
+        </div>
+        <div class="car-body">
+          <div class="car-name">${car.brand} ${car.name}</div>
+          <div class="car-sub">${car.year}</div>
+          <div class="plate">
+            <div class="plate-br">BR</div>
+            <div class="plate-num">${car.plate}</div>
+          </div>
+          <div class="car-meta">
+            <div><b>${car.km} km</b>Quilometragem</div>
+            <div><b>${car.year.split("/")[0]}</b>Ano modelo</div>
+          </div>
+          <div class="car-price-row">
+            <div class="car-price"><small>À vista</small>R$ ${car.price}</div>
+          </div>
+          <a class="zap-btn" target="_blank" rel="noopener" href="${waLink(car)}">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m0 1.67c2.21 0 4.29.86 5.85 2.42a8.23 8.23 0 0 1 2.42 5.82c0 4.55-3.71 8.25-8.27 8.25a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.13.82.84-3.05-.2-.31a8.18 8.18 0 0 1-1.26-4.37c0-4.56 3.71-8.25 8.24-8.25M8.53 6.9c-.17 0-.45.06-.68.32-.24.25-.9.88-.9 2.15s.92 2.5 1.05 2.67c.13.17 1.8 2.86 4.45 3.9 2.2.86 2.65.69 3.13.65.48-.05 1.53-.62 1.75-1.23s.22-1.12.15-1.23c-.06-.11-.24-.17-.5-.3s-1.53-.75-1.77-.84c-.24-.09-.41-.13-.59.13-.17.26-.67.84-.82 1.01-.15.17-.3.19-.56.06-.26-.13-1.1-.4-2.09-1.28-.77-.68-1.29-1.53-1.44-1.79-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.06-.13-.59-1.47-.83-2.01-.21-.5-.43-.44-.6-.45z"/></svg>
+            Chamar no Zap
+          </a>
+        </div>`;
+      grid.appendChild(el);
+    });
+  }
+  render("todos");
+
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      render(btn.dataset.filter);
+    });
+  });
+
+  // instagram mock tiles linking out
+  const instaGrid = document.getElementById("instaGrid");
+  const tiles = ["🚗","🔑","🛠️","🚙","📸","✅"];
+  tiles.forEach(t => {
+    const d = document.createElement("a");
+    d.className = "insta-tile";
+    d.href = INSTAGRAM_URL;
+    d.target = "_blank";
+    d.rel = "noopener";
+    d.innerHTML = `<span>${t}</span>`;
+    instaGrid.appendChild(d);
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
+   
